@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(images/404-error-page-examples-best.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    margin-top: -600px;
+}
+
+a:hover {
+    background-color: white;
+    color: black;
+}
+
+@media screen and (max-width: 767px) {
+    a {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+}
