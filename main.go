@@ -36,12 +36,12 @@ func main() {
 
 	// Définir une route pour la page d'accueil
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		html, err := ioutil.ReadFile("static/error.html")
+		html, err := ioutil.ReadFile("error404.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		css, err := ioutil.ReadFile("static/error.css")
+		css, err := ioutil.ReadFile("static/styleError.css")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -53,7 +53,8 @@ func main() {
 		}
 
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background-image: url('data:image/jpg;base64,%s')\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
+		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
+
 	})
 
 	// Définir une route pour la page de connexion
