@@ -33,6 +33,15 @@ func main() {
 		w.Header().Set("Content-Type", "text/javascript")
 		fmt.Fprint(w, string(js))
 	})
+	r.HandleFunc("/changement_pdp.js", func(w http.ResponseWriter, r *http.Request) {
+		js, err := ioutil.ReadFile("changement_pdp.js")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "text/javascript")
+		fmt.Fprint(w, string(js))
+	})
 
 	// Définir une route pour la page d'accueil
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -58,24 +67,36 @@ func main() {
 	})
 
 	// Définir une route pour la page de connexion
+	// Définir une route pour la page de connexion avec possibilité de changer la photo de profil
 	r.HandleFunc("/login_page.html", func(w http.ResponseWriter, r *http.Request) {
-		html, err := ioutil.ReadFile("login_page.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
+		if r.Method == http.MethodGet {
+			html, err := ioutil.ReadFile("login_page.html")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			css, err := ioutil.ReadFile("static/style.css")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			image, err := ioutil.ReadFile("./static/images/background.jpg")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			fmt.Fprintf(w, "<html><head><title>Login Page</title><style>%s</style></head><body style=\"background-image: url('data:image/png;base64,%s')\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
+		} else if r.Method == http.MethodPost {
+			file, _, err := r.FormFile("image")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			defer file.Close()
+
+			fmt.Fprint(w, "Photo de profil mise à jour avec succès")
 		}
-		css, err := ioutil.ReadFile("static/style.css")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		image, err := ioutil.ReadFile("./static/images/background.jpg")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "<html><head><title>Login Page</title><style>%s</style></head><body style=\"background-image: url('data:image/png;base64,%s')\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
 	})
 
 	// Définir une route pour récupérer les données de la base de données
