@@ -42,33 +42,7 @@ func main() {
 		w.Header().Set("Content-Type", "text/javascript")
 		fmt.Fprint(w, string(js))
 	})
-
-	// Définir une route pour la page d'accueil
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		html, err := ioutil.ReadFile("error404.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		css, err := ioutil.ReadFile("static/styleError.css")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		image, err := ioutil.ReadFile("static/images/404-error-page-examples-best.jpg")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
-
-	})
-
-	// Définir une route pour la page de connexion
-	// Définir une route pour la page de connexion avec possibilité de changer la photo de profil
-	r.HandleFunc("/login_page.html", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			html, err := ioutil.ReadFile("login_page.html")
 			if err != nil {
@@ -98,7 +72,28 @@ func main() {
 			fmt.Fprint(w, "Photo de profil mise à jour avec succès")
 		}
 	})
+	// Définir une route pour la page d'accueil
+	r.HandleFunc("/login_page.html", func(w http.ResponseWriter, r *http.Request) {
+		html, err := ioutil.ReadFile("error404.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		css, err := ioutil.ReadFile("static/styleError.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		image, err := ioutil.ReadFile("static/images/404-error-page-examples-best.jpg")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
+
+	})
 	// Définir une route pour récupérer les données de la base de données
 	r.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
 		rows, err := db.Query("SELECT * FROM users")
