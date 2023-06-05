@@ -21,7 +21,7 @@ func main() {
 
 	// Initialiser le routeur
 	r := mux.NewRouter()
-	fmt.Print("Écouté sur le port 8080...\n")
+	fmt.Print("Écouter sur le port 8080...\n")
 
 	// Définir une route pour le fichier script.js
 	r.HandleFunc("/script.js", func(w http.ResponseWriter, r *http.Request) {
