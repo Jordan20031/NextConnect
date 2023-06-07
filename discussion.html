@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Posts</title>
-
+    <meta charset="UTF-8">
+    <title>Forum Chat</title>
+    <link rel="stylesheet" href="static/conv.css">
 </head>
 <body>
-    <h1>Ceci est une page ou des personnes peuvent parler entres-elles</h1>
-    <a href="C:/Users/jorda/GolandProjects/awesomeProject2/forum/login_page.html">return to the Home</a>
+    <header class="banner">
+        <h1>Forum Chat</h1>
+        <p>Bienvenue sur notre forum de discussion en ligne !</p>
+    </header>
+    <div class="container">
+        <section class="chat">
+            <div class="message">
+                <div class="user">John Doe</div>
+                <div class="content">Salut tout le monde !</div>
+            </div>
+            <div class="message">
+                <div class="user">Jane Smith</div>
+                <div class="content">Bonjour, comment ça va ?</div>
+            </div>
+            <!-- Ajoutez d'autres messages ici -->
+        </section>
+        <section class="post">
+            <form>
+                <input type="text" placeholder="Nom d'utilisateur">
+                <input type="text" placeholder="Message">
+                <button type="submit">Envoyer</button>
+            </form>
+            <!-- Ajoutez d'autres champs de formulaire pour les photos, les liens, etc. -->
+        </section>
+    </div>
+    <a href="login_page.html" class="home-link">Retour à l'accueil</a>
 </body>
 </html>
