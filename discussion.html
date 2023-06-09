@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Forum Chat</title>
-    <link rel="stylesheet" href="static/conv.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextConnect</title>
+    <link rel="stylesheet" href="conv.css">
 </head>
 <body>
-    <header class="banner">
-        <h1>Forum Chat</h1>
-        <p>Bienvenue sur notre forum de discussion en ligne !</p>
+    <header>
+        <div class="banner">
+            <h1>NextConnect</h1>
+            <img src="Icons/logo.png" alt="Logo NextConnect">
+            <div class="buttons">
+                <a href="login.html" class="button"><img src="Icons/connexion.png" alt="Connexion"></a>
+                <a href="#" class="button"><img src="Icons/loupe.png" alt="Recherche"></a>
+                <button class="button" id="night-mode-toggle"><img src="Icons/connexion_night.png" alt="Mode Nuit"></button>
+            </div>
+        </div>
     </header>
-    <div class="container">
-        <section class="chat">
-            <div class="message">
-                <div class="user">John Doe</div>
-                <div class="content">Salut tout le monde !</div>
+
+    <main>
+        <div class="message">
+            <div class="user-avatar"></div>
+            <div class="message-content">
+                <p class="username">Utilisateur 1</p>
+                <p class="timestamp">Posté le 07-06-2023 à 21:23:51</p>
+                <p class="message-text">Contenu du message 1</p>
             </div>
-            <div class="message">
-                <div class="user">Jane Smith</div>
-                <div class="content">Bonjour, comment ça va ?</div>
+        </div>
+      
+        <div class="message">
+            <div class="user-avatar"></div>
+            <div class="message-content">
+                <p class="username">Utilisateur 2</p>
+                <p class="timestamp">Posté le 07-06-2023 à 21:25:12</p>
+                <p class="message-text">Contenu du message 2</p>
             </div>
-            <!-- Ajoutez d'autres messages ici -->
-        </section>
-        <section class="post">
-            <form>
-                <input type="text" placeholder="Nom d'utilisateur">
-                <input type="text" placeholder="Message">
-                <button type="submit">Envoyer</button>
-            </form>
-            <!-- Ajoutez d'autres champs de formulaire pour les photos, les liens, etc. -->
-        </section>
-    </div>
-    <a href="login_page.html" class="home-link">Retour à l'accueil</a>
+        </div>
+      
+        <!-- Ajoutez plus de messages ici -->
+      
+        <form class="message-form">
+            <textarea name="message" placeholder="Écrire un message"></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </main>
+  
+    <footer>
+        <p>© 2023 Forum de discussion. Tous droits réservés.</p>
+    </footer>
 </body>
 </html>
