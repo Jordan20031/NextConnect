@@ -44,17 +44,17 @@ func main() {
 	})
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			html, err := ioutil.ReadFile("login_page.html")
+			html, err := ioutil.ReadFile("./templates/html/login_page.html")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
-			css, err := ioutil.ReadFile("static/style.css")
+			css, err := ioutil.ReadFile("templates/css/style.css")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
-			image, err := ioutil.ReadFile("./static/images/background.jpg")
+			image, err := ioutil.ReadFile("./static/images/BG.jpg")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -73,13 +73,13 @@ func main() {
 		}
 	})
 	// Définir une route pour la page d'accueil
-	r.HandleFunc("/login_page.html", func(w http.ResponseWriter, r *http.Request) {
-		html, err := ioutil.ReadFile("error404.html")
+	r.HandleFunc("./templates/html/login_page.html", func(w http.ResponseWriter, r *http.Request) {
+		html, err := ioutil.ReadFile("./templates/html/error404.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		css, err := ioutil.ReadFile("static/styleError.css")
+		css, err := ioutil.ReadFile("./templates/css/styleError.css")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -123,8 +123,8 @@ func main() {
 		}
 	})
 
-	fs := http.FileServer(http.Dir("static"))
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+	fs := http.FileServer(http.Dir("./templates/css/"))
+	r.PathPrefix("/templates/css/").Handler(http.StripPrefix("/templates/css/", fs))
 
 	fmt.Printf("Server is running on http://localhost:8080/\n")
 	log.Fatal(http.ListenAndServe(":8080", r))
