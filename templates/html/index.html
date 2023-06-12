@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page de conversation</title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+  <div class="message-container">
+    <div class="message bot-message">
+      <span>Bienvenue dans la conversation!<br>
+        Veuillez utiliser un langage correct lorsque vous dialoguez avec des personnes
+      </span>
+      <div class="message-info">Gilbert - 02/06/2023 14:02</div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <input type="text" class="message-input" id="user-input" placeholder="Saisissez votre message">
+    <div class="profile-pic-div">
+      <img id="photo" class="preview" src="" alt="Image sélectionnée">
+      <input type="file" id="file" accept="image/*">
+      <button id="uploadBtn" style="display: none;">Upload</button>
+    </div>
+    <button class="send-button" onclick="sendMessage()">Envoyer</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
