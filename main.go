@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	// Ouvrir la connexion à la base de données SQLite
 	db, err := sql.Open("sqlite3", "./data.db")
 	if err != nil {
 		log.Fatal(err)
@@ -25,6 +26,7 @@ func main() {
 
 	// Définir une route pour le fichier script.js
 	r.HandleFunc("/script.js", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier script.js
 		js, err := ioutil.ReadFile("script.js")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -33,7 +35,10 @@ func main() {
 		w.Header().Set("Content-Type", "text/javascript")
 		fmt.Fprint(w, string(js))
 	})
+
+	// Définir une route pour le fichier changement_pdp.js
 	r.HandleFunc("/changement_pdp.js", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier changement_pdp.js
 		js, err := ioutil.ReadFile("changement_pdp.js")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -42,26 +47,38 @@ func main() {
 		w.Header().Set("Content-Type", "text/javascript")
 		fmt.Fprint(w, string(js))
 	})
+
+	// Définir une route pour la page d'accueil ("/")
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
+			// Lire le contenu du fichier login_page.html
 			html, err := ioutil.ReadFile("./templates/html/login_page.html")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+
+			// Lire le contenu du fichier style.css
 			css, err := ioutil.ReadFile("templates/css/style.css")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+
+			// Lire le contenu du fichier image (BG.jpg)
 			image, err := ioutil.ReadFile("./static/images/BG.jpg")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+
+			// Définir les en-têtes de réponse pour le type de contenu
 			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+			// Afficher la page HTML avec le CSS et l'image incorporés
 			fmt.Fprintf(w, "<html><head><title>Login Page</title><style>%s</style></head><body style=\"background-image: url('data:image/png;base64,%s')\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
 		} else if r.Method == http.MethodPost {
+			// Gérer la soumission du formulaire POST (non implémenté dans le code fourni)
 			file, _, err := r.FormFile("image")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -72,30 +89,86 @@ func main() {
 			fmt.Fprint(w, "Photo de profil mise à jour avec succès")
 		}
 	})
-	// Définir une route pour la page d'accueil
-	r.HandleFunc("./templates/html/login_page.html", func(w http.ResponseWriter, r *http.Request) {
+
+	// Définir une route pour la page d'erreur 404 ("/templates/html/login_page.html")
+	r.HandleFunc("/templates/html/login_page.html", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier error404.html
 		html, err := ioutil.ReadFile("./templates/html/error404.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		css, err := ioutil.ReadFile("./templates/css/styleError.css")
+
+		// Lire le contenu du fichier error404.css
+		css, err := ioutil.ReadFile("./templates/css/error404.css")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+
+		// Lire le contenu du fichier image (404-error-page-examples-best.jpg)
 		image, err := ioutil.ReadFile("static/images/404-error-page-examples-best.jpg")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
+		// Définir les en-têtes de réponse pour le type de contenu
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
 
+		// Afficher la page d'erreur 404 avec le CSS et l'image incorporés
+		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
 	})
-	// Définir une route pour récupérer les données de la base de données
+
+	// Définir une route pour la page choicesubject.html
+	r.HandleFunc("/choicesubject.html", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier choicesubject.html
+		html, err := ioutil.ReadFile("./templates/html/choicesubject.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Lire le contenu du fichier choicesubject.css
+		css, err := ioutil.ReadFile("./templates/css/choicesubject.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Définir les en-têtes de réponse pour le type de contenu
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		// Afficher la page choicesubject.html avec le CSS incorporé
+		fmt.Fprintf(w, "<html><head><title>Choose Subject</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
+	})
+
+	// Définir une route pour la page discussion.html
+	r.HandleFunc("/discussion.html", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier discussion.html
+		html, err := ioutil.ReadFile("./templates/html/discussion.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Lire le contenu du fichier discussion.css
+		css, err := ioutil.ReadFile("./templates/css/discussion.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Définir les en-têtes de réponse pour le type de contenu
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		// Afficher la page discussion.html avec le CSS incorporé
+		fmt.Fprintf(w, "<html><head><title>Discussion</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
+	})
+
+	// Définir une route pour récupérer les données de la base de données ("/data")
 	r.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
+		// Exécuter une requête SQL pour récupérer les données de la table "users"
 		rows, err := db.Query("SELECT * FROM users")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -108,6 +181,7 @@ func main() {
 			name string
 		)
 
+		// Parcourir les lignes de résultats et afficher les données
 		for rows.Next() {
 			err := rows.Scan(&id, &name)
 			if err != nil {
@@ -123,6 +197,7 @@ func main() {
 		}
 	})
 
+	// Définir une route pour servir les fichiers CSS statiques
 	fs := http.FileServer(http.Dir("./templates/css/"))
 	r.PathPrefix("/templates/css/").Handler(http.StripPrefix("/templates/css/", fs))
 

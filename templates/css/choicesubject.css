@@ -1,0 +1,148 @@
+/* Styles for the page layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.container .topics {
+    width: 66.66%;
+    padding-right: 20px;
+}
+
+.container .topics .topic {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.container .topics .topic h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.container .topics .topic p {
+    color: #777;
+}
+
+.join-button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.info-panel {
+    flex-grow: 1;
+    padding-left: 20px;
+}
+
+.card {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    color: #777;
+}
+
+.info-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.info-content {
+    margin-left: 15px;
+}
+
+.moderators-list {
+    font-weight: bold;
+}
+
+#bloc-formulaire-forum {
+    margin-top: 30px;
+}
+
+.titre-head-bloc {
+    margin-bottom: 10px;
+}
+
+.titre-bloc {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-post-topic {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+textarea.form-control {
+    height: 150px;
+}
+
+.submit-buttons-block {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-cancel-topic-form {
+    background-color: #ccc;
+}

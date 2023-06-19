@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Choix de Sujet</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Forum de Discussion</h1>
+        <div class="buttons">
+            <a href="http://localhost:8080/" class="button"><img src="Icons/home.png" alt="Home"></a>
+            <button class="button" id="night-mode-toggle"><img src="Icons/connexion_night.png" alt="Mode Nuit"></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="topics">
+            <div class="topic">
+                <h2>Est-ce que le cheval blanc d'Henry 4 était pas noir ?</h2>
+                <a href="discussion.html" class="join-button">Rejoindre</a>
+            </div>
+
+            <div class="topic">
+                <h2>J'ai pas encore perdu mon glant de lait est-ce normal</h2>
+                <a href="discussion.html" class="join-button">Rejoindre</a>
+            </div>
+
+            <div class="topic">
+                <h2>Faut-il que j'ai peur de ma mère, lorsqu'elle me dit : "Dépêche-toi de rentrer" ?</h2>
+                <a href="discussion.html" class="join-button">Rejoindre</a>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <div class="card">
+                <div class="card-header">Info</div>
+                <div class="card-body">
+                    <h4 class="info-title">GESTION DU FORUM</h4>
+                    <div class="info-content">
+                        Modérateurs :
+                        <span class="moderators-list">
+                            Aziz_beaudelaire, Jordan
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bloc-formulaire-forum" data-redirect-url="https://www.jeuxvideo.com/login?url=https%3A%2F%2Fwww.jeuxvideo.com%2Fforums%2F0-51-0-1-0-1-0-blabla-18-25-ans.htm&amp;hash=1c1fedadea0cb93a9bac6e1dc65a6f5b" data-forum-id="51">
+            <div class="titre-head-bloc">
+                <div class="titre-bloc">Nouveau Sujet</div>
+            </div>
+
+            <form role="form" class="form-post-topic js-form-post-topic px-3 px-lg-0" method="post" action="discussion.html">
+
+                <div class="form-group">
+                    <input type="text" class="form-control js-focus-field" name="titre_topic" id="titre_topic" placeholder="Saisir le titre du sujet" tabindex="1" value="">
+                </div>
+
+                <!-- bloc sondage -->
+                <div class="bloc-sondage-topic">
+                    <input type="hidden" name="sondage_hidden" value="0">
+                </div>
+
+                <textarea id="message_topic" name="message_topic" class="form-control" placeholder="Message du sujet" rows="10" tabindex="2"></textarea>
+
+                <div class="submit-buttons-block">
+                    <input type="submit" class="btn btn-valid-topic-form" value="Poster">
+                    <input type="button" class="btn btn-cancel-topic-form" value="Annuler">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

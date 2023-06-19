@@ -3,31 +3,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Website with login and regsistration</title>
+    <title>Website with login and registration</title>
     <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
     <header>
         <h2 class="logo"><img src="../../static/images/PDP.jpg" onclick="openSidebar()"></h2>
         <nav class="navigation">
-            <a href="#">Home</a>
-            <a href="C:\Users\jorda\GolandProjects\awesomeProject2\forum\discussion.html">Posts</a>
+            <a href="login_page.html">Home</a>
+            <a href="choicesubject.html">Posts</a>
             <a href="#">Services</a>
             <a href="#">Contact us</a>
-            <button class = "btnLogin-popup">Login</button>
+            <button class="btnLogin-popup">Login</button>
         </nav>
     </header>
-      <div class="sidebar" id="sidebar">
-        <div class="profile-pic-div">
-          <img src="../../static/images/PDP.jpg" id ="photo">
-          <input type="file" id="file">
-          <label for="file" id="uploadBtn">Choose Photo</label>
-        </div>
-        <textarea id="description" rows="4" cols="42">Enter your description...</textarea>
-        <h1 class="description_profile">Description</h1>
-        <h1 class="profile">Profile :</h1>
+    <div class="sidebar" id="sidebar">
+      <div class="profile-pic-div">
+        <img src="../../static/images/PDP.jpg" id="photo">
+        <input type="file" id="file">
+        <label for="file" id="uploadBtn">Choose Photo</label>
       </div>
-    </div>   
+      <textarea id="description" rows="4" cols="42">Enter your description...</textarea>
+      <h1 class="description_profile">Description</h1>
+      <h1 class="profile">Profile :</h1>
+    </div>
+
     <div class="wrapper">
       <span class="icon-close">✖</span>
       <div class="form-box login">
@@ -82,13 +82,30 @@
           </div>
         </form>
       </div>
-
     </div>
+
     <script src="../../script.js"></script>
     <script type="text/javascript" src="../../changement_pdp.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    
+
     <h1></h1>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const homeBtn = document.querySelector('nav a[href="login_page.html"]');
+        const postsBtn = document.querySelector('nav a[href="choicesubject.html"]');
+
+        homeBtn.addEventListener('click', function(event) {
+          event.preventDefault(); // Empêche le chargement de la page
+          location.reload(); // Recharge la page actuelle
+        });
+
+        postsBtn.addEventListener('click', function(event) {
+          event.preventDefault(); // Empêche le chargement de la page
+          window.location.href = 'choicesubject.html'; // Redirige vers la page choicesubject.html
+        });
+      });
+    </script>
   </body>
 </html>
