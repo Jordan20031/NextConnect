@@ -17,6 +17,13 @@ type discussions struct {
     idUser int64
 }
 
+type messages struct (
+    ID int64
+    text string
+    IDcreateur int64
+    IDdiscution int64
+)
+
 func updateRole(db *sql.DB, user *User, newRole string) error {
 	updateRole := "UPDATE users SET Role = ? WHERE ID = ?"
 	_, err := db.Exec(updateRole, newRole, user.ID)
@@ -109,4 +116,26 @@ func getDiscussionByID(db *sql.DB, discussionID int64) (Discussions, error) {
 	}
 
 	return discussion, nil
+}
+
+func insertMessage(db *sql.DB, message *Messages) error {
+	insertQuery := "INSERT INTO messages (text, IDcreateur, IDdiscution) VALUES (?, ?, ?)"
+	result, err := db.Exec(insertQuery, message.Text, message.IDCreateur, message.IDDiscution)
+	if err != nil {
+		return err
+	}
+	message.ID, _ = result.LastInsertId()
+	return nil
+}
+
+func getMessageByID(db *sql.DB, messageID int64) (Messages, error) {
+	query := "SELECT ID, text, IDcreateur, IDdiscution FROM messages WHERE ID = ?"
+
+	var message Messages
+	err := db.QueryRow(query, messageID).Scan(&message.ID, &message.Text, &message.IDCreateur, &message.IDDiscution)
+	if err != nil {
+		return Messages{}, err
+	}
+
+	return message, nil
 }
