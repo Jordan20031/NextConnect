@@ -35,11 +35,12 @@ func updateRole(db *sql.DB, user *User, newRole string) error {
 	return nil
 }
 
-func deleteUser(db *sql.DB, user *User) error {
-	deleteUser := "DELETE FROM users WHERE ID = ?"
-	_, err := db.Exec(deleteUser, user.ID)
+func deleteUserFromDB(db *sql.DB, userID int64) error {
+	deleteQuery := "DELETE FROM users WHERE ID = ?"
+	_, err := db.Exec(deleteQuery, userID)
 	return err
 }
+
 
 func updateUsername(db *sql.DB, userID int64, newUsername string) error {
 	updateQuery := "UPDATE users SET Username = ? WHERE ID = ?"
@@ -139,4 +140,28 @@ func getMessageByID(db *sql.DB, messageID int64) (Messages, error) {
 	}
 
 	return message, nil
+}
+
+func deleteMessagesByUserID(db *sql.DB, userID int64) error {
+	deleteQuery := "DELETE FROM messages WHERE IDcreateur = ?"
+	_, err := db.Exec(deleteQuery, userID)
+	return err
+}
+
+func deleteDiscussionsByUserID(db *sql.DB, userID int64) error {
+	deleteQuery := "DELETE FROM discussions WHERE idUser = ?"
+	_, err := db.Exec(deleteQuery, userID)
+	return err
+}
+
+func deleteMessagesByDiscussionID(db *sql.DB, discussionID int64) error {
+	deleteQuery := "DELETE FROM messages WHERE IDdiscution = ?"
+	_, err := db.Exec(deleteQuery, discussionID)
+	return err
+}
+
+func deleteDiscussionsByDiscussionID(db *sql.DB, discussionID int64) error {
+	deleteQuery := "DELETE FROM discussions WHERE ID = ?"
+	_, err := db.Exec(deleteQuery, discussionID)
+	return err
 }

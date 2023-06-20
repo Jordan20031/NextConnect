@@ -10,74 +10,146 @@ func canWriteToDB(user User) bool {
 
 func deleteAccount(db *sql.DB, user User, userID int64) error {
 	if !canDeleteFromDB(user) {
-		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' peuvent supprimer des comptes autre que soi")
+		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' ou 'connected' peuvent supprimer des comptes")
 	}
 
-	if user.Role == "connected" && user.ID != userID {
-		return fmt.Errorf("vous n'êtes autorisé à supprimer que votre propre compte")
+	switch user.Role {
+	case "connected":
+		if user.ID != userID {
+			return fmt.Errorf("vous n'êtes autorisé à supprimer que votre propre compte")
+		} else {
+			// Suppression du compte de l'utilisateur dans la base de données
+			err := deleteUserFromDB(db, userID)
+			if err != nil {
+				return err
+			}
+
+			// Suppression des messages associés à l'ID utilisateur
+			err = deleteMessagesByUserID(db, userID)
+			if err != nil {
+				return err
+			}
+
+			// Suppression des discussions associées à l'ID utilisateur
+			err = deleteDiscussionsByUserID(db, userID)
+			if err != nil {
+				return err
+			}
+		}
+		break
+
+	case "admin":
+		// Suppression du compte de l'utilisateur dans la base de données
+		err := deleteUserFromDB(db, userID)
+		if err != nil {
+			return err
+		}
+
+		// Suppression des messages associés à l'ID utilisateur
+		err = deleteMessagesByUserID(db, userID)
+		if err != nil {
+			return err
+		}
+
+		// Suppression des discussions associées à l'ID utilisateur
+		err = deleteDiscussionsByUserID(db, userID)
+		if err != nil {
+			return err
+		}
+		break
 	}
-
-	// Suppression du compte de l'utilisateur dans la base de données
-	// ... (votre code de suppression ici)
-
-	// Suppression des messages associés à l'ID utilisateur
-	// ... (votre code de suppression ici)
-
-	// Suppression des discussions associées à l'ID utilisateur
-	// ... (votre code de suppression ici)
 
 	return nil
 }
 
 func deleteDiscussion(db *sql.DB, user User, discussionID int64) error {
 	if !canDeleteFromDB(user) {
-		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' peuvent supprimer des discussions")
+		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' ou 'connected' peuvent supprimer des discution")
 	}
 
-	if user.Role == "connected" {
-		// Vérifier si l'utilisateur connecté est autorisé à supprimer la discussion en fonction de son ID
-		// Vous devez implémenter la logique correspondante pour vérifier si l'ID de l'utilisateur connecté est lié à la discussion
+	switch user.Role {
+	case "connected":
+		if user.ID != userID {
+			return fmt.Errorf("vous n'êtes autorisé à supprimer que vos propres discutions")
+		} else {
+			// Suppression des messages associés à l'ID discussion
+			err = deleteMessagesBydiscussionID(db, discussionID)
+			if err != nil {
+				return err
+			}
 
-		// Si l'utilisateur connecté n'est pas autorisé à supprimer la discussion, renvoyer une erreur
-		// return fmt.Errorf("vous n'êtes pas autorisé à supprimer cette discussion")
+			// Suppression des discussions associées à l'ID discussion
+			err = deleteDiscussionsBydiscussionID(db, discussionID)
+			if err != nil {
+				return err
+			}
+		}
+		break
+
+	case "admin":
+		// Suppression des messages associés à l'ID discussion
+		err = deleteMessagesBydiscussionID(db, discussionID)
+		if err != nil {
+			return err
+		}
+
+		// Suppression des discussions associées à l'ID discussion
+		err = deleteDiscussionsBydiscussionID(db, discussionID)
+		if err != nil {
+			return err
+		}
+		break
 	}
-
-	// Suppression de la discussion de la base de données en utilisant l'ID spécifié
-	// ... (votre code de suppression ici)
 
 	return nil
 }
 
 func deleteMessage(db *sql.DB, user User, messageID int64) error {
 	if !canDeleteFromDB(user) {
-		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' peuvent supprimer des messages")
+		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' ou 'connected' peuvent supprimer des discution")
 	}
 
-	if user.Role == "connected" {
-		// Vérifier si l'utilisateur connecté est autorisé à supprimer le message en fonction de son ID
-		// Vous devez implémenter la logique correspondante pour vérifier si l'ID de l'utilisateur connecté est lié au message
+	switch user.Role {
+	case "connected":
+		if user.ID != userID {
+			return fmt.Errorf("vous n'êtes autorisé à supprimer que vos propres discutions")
+		} else {
+			// Suppression des messages associés à l'ID discussion
+			err = deleteMessagesBymessageID(db, messageID)
+			if err != nil {
+				return err
+			}
+		}
+		break
 
-		// Si l'utilisateur connecté n'est pas autorisé à supprimer le message, renvoyer une erreur
-		// return fmt.Errorf("vous n'êtes pas autorisé à supprimer ce message")
+	case "admin":
+		// Suppression des messages associés à l'ID discussion
+		err = deleteMessagesBymessageID(db, messageID)
+		if err != nil {
+			return err
+		}
 	}
-
-	// Suppression du message de la base de données en utilisant l'ID spécifié
-	// ... (votre code de suppression ici)
 
 	return nil
 }
 
-func createDiscussion(db *sql.DB, user User, discussion discussions) error {
+func createDiscussion(db *sql.DB, user User, image []byte, titre string, description string) error {
 	if user.Role != "admin" && user.Role != "connected" {
 		return fmt.Errorf("seuls les utilisateurs avec les rôles 'admin' ou 'connected' peuvent créer une discussion")
 	}
 
-	// Vérifier si l'utilisateur a les autorisations nécessaires pour créer une discussion supplémentaire
-	// Vous pouvez ajouter des conditions supplémentaires selon vos besoins
+	// Initialisation de la variable discussion
+	discussion := discussions{
+		ID:          0,             // L'ID sera automatiquement généré par la base de données
+		image:       image,
+		titre:       titre,
+		description: description,
+		nmbreDeLikes: 0,
+		idUser:      user.userID
+	}
 
 	// Insérer la nouvelle discussion dans la base de données
-	insertDiscussion := "INSERT INTO discussions (image, titre, description, nmbreDeLikes, idUser) VALUES (?, ?, ?, ?, ?)"
-	_, err := db.Exec(insertDiscussion, discussion.image, discussion.titre, discussion.description, discussion.nmbreDeLikes, discussion.idUser)
+	err := insertDiscussion(db, &discussion)
 	if err != nil {
 		return err
 	}
@@ -85,17 +157,21 @@ func createDiscussion(db *sql.DB, user User, discussion discussions) error {
 	return nil
 }
 
-func createMessage(db *sql.DB, user User, message messages) error {
+func createMessage(db *sql.DB, user User, text string, IDdiscution int64) error {
 	if user.Role != "admin" && user.Role != "connected" {
 		return fmt.Errorf("seuls les utilisateurs avec les rôles 'admin' ou 'connected' peuvent créer un message")
 	}
 
-	// Vérifier si l'utilisateur a les autorisations nécessaires pour créer un message supplémentaire
-	// Vous pouvez ajouter des conditions supplémentaires selon vos besoins
+	// Générer un nouveau message
+	message := messages{
+		ID:          0,             // L'ID sera automatiquement généré par la base de données
+		Text:        text,
+		idUser:      user.userID
+		IDDiscution: IDdiscution,
+	}
 
 	// Insérer le nouveau message dans la base de données
-	insertMessage := "INSERT INTO messages (text, IDcreateur, IDdiscution) VALUES (?, ?, ?)"
-	_, err := db.Exec(insertMessage, message.text, message.IDcreateur, message.IDdiscution)
+	err := insertMessage(db, &message)
 	if err != nil {
 		return err
 	}
