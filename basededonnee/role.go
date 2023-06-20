@@ -1,3 +1,4 @@
+package basededonnee
 
 func canDeleteFromDB(user User) bool {
 	return user.Role == "admin" || user.Role == "connected"

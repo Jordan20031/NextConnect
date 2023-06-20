@@ -1,3 +1,4 @@
+package basededonnee
 
 type User struct {
 	ID       int64
