@@ -65,8 +65,8 @@ func main() {
 				return
 			}
 
-			// Lire le contenu du fichier image (BG.jpg)
-			image, err := ioutil.ReadFile("./static/images/BG.jpg")
+			// Lire le contenu du fichier image (background.jpg)
+			image, err := ioutil.ReadFile("./static/images/background.jpg")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -118,6 +118,52 @@ func main() {
 
 		// Afficher la page d'erreur 404 avec le CSS et l'image incorporés
 		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
+	})
+
+	// Définir une route pour la page mainpage.html
+	r.HandleFunc("/mainpage.html", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier mainpage.html
+		html, err := ioutil.ReadFile("./templates/html/mainpage.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Lire le contenu du fichier mainpage.css
+		css, err := ioutil.ReadFile("./templates/css/mainpage.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Définir les en-têtes de réponse pour le type de contenu
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		// Afficher la page choicesubject.html avec le CSS incorporé
+		fmt.Fprintf(w, "<html><head><title>Choose Subject</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
+	})
+
+	// Définir une route pour la page contact.html
+	r.HandleFunc("/contact.html", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier contact.html
+		html, err := ioutil.ReadFile("./templates/html/contact.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Lire le contenu du fichier contact.css
+		css, err := ioutil.ReadFile("./templates/css/contact.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Définir les en-têtes de réponse pour le type de contenu
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		// Afficher la page choicesubject.html avec le CSS incorporé
+		fmt.Fprintf(w, "<html><head><title>Choose Subject</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
 	})
 
 	// Définir une route pour la page choicesubject.html

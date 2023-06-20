@@ -1,0 +1,45 @@
+/* Reset CSS */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+}
+  
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('../../static/images/BG.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 1px;
+    display: flex;
+    align-items: center;
+    z-index: 99;
+}
+  
+.logo {
+    display: inline-block;
+    cursor: pointer;
+}
+  
+.navigation {
+    display: inline-block;
+    margin-left: 20px;
+}
+  
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+  

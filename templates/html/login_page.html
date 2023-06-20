@@ -10,10 +10,9 @@
     <header>
         <h2 class="logo"><img src="../../static/images/PDP.jpg" onclick="openSidebar()"></h2>
         <nav class="navigation">
-            <a href="login_page.html">Home</a>
+            <a href="mainpage.html">Home</a>
             <a href="choicesubject.html">Posts</a>
-            <a href="#">Services</a>
-            <a href="#">Contact us</a>
+            <a href="contact.html">Contact us</a>
             <button class="btnLogin-popup">Login</button>
         </nav>
     </header>
@@ -93,7 +92,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const homeBtn = document.querySelector('nav a[href="login_page.html"]');
+        const homeBtn = document.querySelector('nav a[href="mainpage.html"]');
         const postsBtn = document.querySelector('nav a[href="choicesubject.html"]');
 
         homeBtn.addEventListener('click', function(event) {
