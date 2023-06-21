@@ -143,6 +143,29 @@ func main() {
 		fmt.Fprintf(w, "<html><head><title>Choose Subject</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
 	})
 
+	// Définir une route pour la page createpost.html
+	r.HandleFunc("/createpost.html", func(w http.ResponseWriter, r *http.Request) {
+		// Lire le contenu du fichier mainpage.html
+		html, err := ioutil.ReadFile("./templates/html/createpost.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Lire le contenu du fichier mainpage.css
+		css, err := ioutil.ReadFile("./templates/css/createpost.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Définir les en-têtes de réponse pour le type de contenu
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		// Afficher la page createpost.html avec le CSS incorporé
+		fmt.Fprintf(w, "<html><head><title>create post</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
+	})
+
 	// Définir une route pour la page contact.html
 	r.HandleFunc("/contact.html", func(w http.ResponseWriter, r *http.Request) {
 		// Lire le contenu du fichier contact.html

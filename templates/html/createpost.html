@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/create_post.css"/>
+    <link rel="icon" type="image/x-icon" href="../css/createpost.css">
+</head>
+<body>
+<header>
+    <a href="mainpage.html" class="button"><img src="Icons/home.png" alt="Home"></a>
+    <a href="choicesubject.html" class="button"><img src="Icons/return.png" alt="Recherche"></a>
+    <a href="contact.html">Contact us</a>
+<header>
+<section style="margin-top: 5rem;">
+    <div style="margin: auto; width: 50%; text-align: center; padding: 1rem">
+        <form action="/post" method="Post">
+
+            <label style="font-weight: bolder" for="user_Post1"><h1>Create your post :</h1></label><br>
+
+            <div class="row">
+                <div class="column" style="background-color:#aaa;">
+                    <div class="right">
+                        <button class="form-return-button" onclick="history.back()"> &#9203; Go Back</button>
+                    </div>
+                </div>
+                <div class="column" style="background-color:#bbb;">
+                    <div class="left">
+                        <label style="font-weight: bolder" for="user_Post1"><h3>1 - Type your Title :</h3></label><br>
+                        <input type="text" id="user_Post1" name="title"><br><br>
+
+                        <h3>2 - Select your Category :</h3><br>
+                        <button class="category"><label for=>Survival</label>
+                            <input type="checkbox" id="action" name="survival" class="tickets" value="survival"></button>
+
+                        <button class="category"><label for="biopic">Creative</label>
+                            <input type="checkbox" id="Creative" name="Creative"  class="tickets" value="Creative"></button>
+
+                        <button class="category"><label for="Hardcore">Hardcore</label>
+                            <input type="checkbox" id="Hardcore" name="Hardcore" class="tickets" value="Hardcore"><br></button>
+                        <label for="user_Post3"><h3>3 - Type your post : </h3></label><br>
+                        <input type="text" id="user_Post3" name="content" style="width: 30vmax; height: 10vmax"><br><br>
+                        <input class="form-submit-button" type="submit" value="Submit"><input class="form-submit-button" type="reset"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
