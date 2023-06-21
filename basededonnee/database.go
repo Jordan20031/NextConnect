@@ -1,5 +1,10 @@
 package basededonnee
 
+import (
+	"database/sql"
+	"fmt"
+)
+
 type User struct {
 	ID       int64
 	Username string
@@ -10,20 +15,20 @@ type User struct {
 }
 
 type discussions struct {
-    ID int64
-    image []byte
-	titre string
-    description string
-    nmbreDeLikes int64
-    idUser int64
+	ID           int64
+	image        []byte
+	titre        string
+	description  string
+	nmbreDeLikes int64
+	idUser       int64
 }
 
-type messages struct (
-    ID int64
-    text string
-    IDcreateur int64
-    IDdiscution int64
-)
+type messages struct {
+	ID          int64
+	text        string
+	IDcreateur  int64
+	IDdiscution int64
+}
 
 func updateRole(db *sql.DB, user *User, newRole string) error {
 	updateRole := "UPDATE users SET Role = ? WHERE ID = ?"
@@ -40,7 +45,6 @@ func deleteUserFromDB(db *sql.DB, userID int64) error {
 	_, err := db.Exec(deleteQuery, userID)
 	return err
 }
-
 
 func updateUsername(db *sql.DB, userID int64, newUsername string) error {
 	updateQuery := "UPDATE users SET Username = ? WHERE ID = ?"

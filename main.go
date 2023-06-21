@@ -94,6 +94,22 @@ func main() {
 		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head><body style=\"background: url('data:image/jpg;base64,%s') no-repeat center center fixed; background-size: cover;\">%s</body></html>", string(css), base64.StdEncoding.EncodeToString(image), string(html))
 
 	})
+	r.HandleFunc("./templates/html/discussion.html", func(w http.ResponseWriter, r *http.Request) {
+		html, err := ioutil.ReadFile("./templates/html/discussion.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		css, err := ioutil.ReadFile("./templates/css/conv.css")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		fmt.Fprintf(w, "<html><head><title>Error 404 page</title><style>%s</style></head></body></html>", string(css), string(html))
+
+	})
 	// Définir une route pour récupérer les données de la base de données
 	r.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
 		rows, err := db.Query("SELECT * FROM users")

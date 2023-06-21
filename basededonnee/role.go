@@ -145,7 +145,7 @@ func createDiscussion(db *sql.DB, user User, image []byte, titre string, descrip
 		titre:       titre,
 		description: description,
 		nmbreDeLikes: 0,
-		idUser:      user.userID
+		idUser:      user.userID,
 	}
 
 	// Insérer la nouvelle discussion dans la base de données
