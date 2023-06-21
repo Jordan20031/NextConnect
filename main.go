@@ -274,3 +274,55 @@ func main() {
 	fmt.Printf("Server is running on http://localhost:8080/\n")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
+
+/** example of how to link html to db to store a newly created discution.
+func handalerSendDiscution(w http.ResponseWriter, r *http.Request) {
+	db, err := sql.Open("sqlite3", "./basededonnee/data.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+	// (vous devrez ajouter la logique pour récupérer l'utilisateur et ses informations de session)
+	user := getUserFromSession(r)
+	if user == nil {
+		http.Error(w, "Utilisateur non connecté", http.StatusUnauthorized)
+		return
+	}
+
+	// Lire les données de la requête POST
+	err = r.ParseMultipartForm(10 << 20) // 10 MB de taille maximale pour le fichier
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	image, _, err := r.FormFile("image")
+	if err != nil {
+		http.Error(w, "Erreur lors de la lecture du fichier image", http.StatusBadRequest)
+		return
+	}
+	defer image.Close()
+
+	titre := r.FormValue("titre")
+	description := r.FormValue("description")
+
+	// Appeler la fonction createDiscussion
+	err = basededonnee.createDiscussion(db, *user, readImageBytes(image), titre, description)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Répondre avec un message de succès
+	fmt.Fprint(w, "Discussion créée avec succès")
+}
+
+// Fonction utilitaire pour lire les octets d'un fichier
+func readImageBytes(file multipart.File) []byte {
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil
+	}
+	return data
+}
+*/
