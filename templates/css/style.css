@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -19,10 +19,9 @@ body {
     overflow-x: hidden;
 }
 
-
-header{
+header {
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     padding: 20px 100px;
@@ -31,7 +30,7 @@ header{
     align-items: center;
     z-index: 99;
 }
-  
+
 .sidebar {
     position: fixed;
     top: 25%;
@@ -40,52 +39,51 @@ header{
     height: 90%;
     background-color: rgba(0, 0, 0, 0.8);
     transition: left 0.5s ease-in-out;
-}
+  }
   
-.sidebar.open {
+  .sidebar.open {
     left: 0;
-}
-
-.profile-pic-div #photo{
+  }
+  .profile-pic-div #photo{
     height: 200px;
     width: 200px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     overflow: hidden;
     border: 1px solid grey;
-}
-  
-#file{
+  }
+  #file{
     display: none;
-}
-  
-.profile-pic-div #uploadBtn{
+  }
+  .profile-pic-div #uploadBtn{
     height: 200px;
     width: 200px;
     position: absolute;
     top: 68%;
     left: 65%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     overflow: hidden;
     color: rgb(0, 98, 255);
     opacity: 0;
-}
-  
-.profile-pic-div:hover #uploadBtn {
+  }
+  .profile-pic-div:hover #uploadBtn {
     opacity: 1;
-}
- 
-.logo img {
+  }
+  
+  
+  
+  
+  .logo img{
     max-width: 4%; 
     height: auto; 
     border-radius: 50%; 
     position: absolute; 
     top: 1rem; 
     left: 1rem; 
-}
+  }
   
 .navigation a {
     position: relative;
@@ -95,7 +93,6 @@ header{
     font-weight: 500;
     margin-left: 40px;
 }
-
 .navigation a::after{
     content: '';
     position: absolute;
@@ -107,14 +104,12 @@ header{
     border-radius: 5px;
     transform-origin: right;
     transform: scaleX(0);
-    transition: transform .5s ;
+    transition: transform 0.5s;
 }
-
 .navigation a:hover::after{
     transform-origin:left ;
     transform: scaleX(1);
 }
-
 .navigation .btnLogin-popup{
     width: 130px;
     height: 50px;
@@ -122,36 +117,33 @@ header{
     border: 2px solid #fff;
     outline: none;
     border-radius: 6px;
-    cursor:pointer;
+    cursor: pointer;
     font-size: 1.1em;
-    color : #fff;
+    color: #fff;
     font-weight: 500;
     margin-left: 40px;
-    transition: .5s;
+    transition: 0.5s;
 }
-
 .navigation .btnLogin-popup:hover{
     background: #fff;
     color: #162938;
 }
-
 .wrapper{
     position: relative;
     width: 400px;
     height: 440px;
     background: transparent;
-    border: 2px solid rgba(255, 255,255, .5);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0, 0,0, .5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform .5s ease , height .2s ease;
+    transition: transform 0.5s ease, height 0.2s ease;
     transform: scale(0);
     overflow: hidden;
 }
-
 .wrapper.active-popup{
     transform: scale(1);
 }
@@ -159,22 +151,19 @@ header{
 .wrapper.active {
     height: 520px;
 }
-
 .wrapper .form-box{
     width: 100%;
     padding: 40px;
 }
 
 .wrapper .form-box.login {
-    transition: transform .18s ease;
+    transition: transform 0.18s ease;
     transform: translateX(0);
 }
-
 .wrapper.active .form-box.login{
     position: none;
     transform: translateX(-400px);
 }
-
 .wrapper .form-box.register{
     position: absolute;
     transition: none;
@@ -182,11 +171,11 @@ header{
 }
 
 .wrapper.active .form-box.register {
-    transition: transform .18s ease;
+    transition: transform 0.18s ease;
     transform: translateX(0);
 }
 
-.wrapper .icon-close{
+.wrapper .icon-close {
     position: absolute;
     top: 0;
     right: 0;
@@ -194,7 +183,7 @@ header{
     height: 45px;
     background: #162938;
     font-size: 2em;
-    color:#fff;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -218,24 +207,22 @@ header{
     border-bottom: 2px solid #162938;
     margin: 30px 0;
 }
-
 .input-box label{
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 5px;
     transform: translateY(-50%);
     font-size: 1em;
     color: #162938;
     font-weight: 500;
     pointer-events: none;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .input-box input:focus~label,
-.input-box input:valid~label{
+.input-box input:valid~label {
     top: -5px;
 }
-
 .input-box input{
     width: 100%;
     height: 100%;
@@ -247,15 +234,13 @@ header{
     font-weight: 600;
     padding: 0 10px 0 0px;
 }
-
 .input-box .icon{
     position: absolute;
     right: 8px;
     font-size: 1.2em;
-    color: #DCDCDC;
+    color: #dcdcdc;
     line-height: 57px;
 }
-
 .remember-forgot{
     font-size: .9em;
     color:#162938;
@@ -264,7 +249,6 @@ header{
     display: flex;
     justify-content: space-between;
 }
-
 .remember-forgot label input{
     accent-color: white;
     margin-right: 3px;
@@ -275,11 +259,9 @@ header{
     text-decoration: none;
     font-weight: bold;
 }
-
 .remember-forgot a:hover{
     text-decoration: underline;
 }
-
 .btn{
     width: 100%;
     height: 45px;
@@ -289,10 +271,9 @@ header{
     border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
-    color : #fff;
+    color: #fff;
     font-weight: 500;
 }
-
 .login-register{
     font-size: .9em;
     color: white;
@@ -306,26 +287,24 @@ header{
     text-decoration: none;
     font-weight: 600;
 }
-
 .login-register p  a:hover{
     text-decoration: underline;
 }
-
 .profile{
     color: #fff;
-
 }
-
 .description_profile{
     color: #fff;
 }
 
 textarea {
-    background-color: rgba(0, 0, 0, 0.1); 
-    color: #FFFFFF; 
-    opacity: 0.9; 
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    opacity: 0.9;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
 }
+
+  
