@@ -72,13 +72,18 @@ func deleteDiscussion(db *sql.DB, user User, discussionID int64) error {
 		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' ou 'connected' peuvent supprimer des discution")
 	}
 
+	discussion, err := getDiscussionByID(db, discussionID)
+	if err != nil {
+		return err
+	}
+
 	switch user.Role {
 	case "connected":
-		if user.ID != userID {
+		if user.ID != discussion.idUser {
 			return fmt.Errorf("vous n'êtes autorisé à supprimer que vos propres discutions")
 		} else {
 			// Suppression des messages associés à l'ID discussion
-			err = deleteMessagesBydiscussionID(db, discussionID)
+			err := deleteMessagesBydiscussionID(db, discussionID)
 			if err != nil {
 				return err
 			}
@@ -93,7 +98,7 @@ func deleteDiscussion(db *sql.DB, user User, discussionID int64) error {
 
 	case "admin":
 		// Suppression des messages associés à l'ID discussion
-		err = deleteMessagesBydiscussionID(db, discussionID)
+		err := deleteMessagesBydiscussionID(db, discussionID)
 		if err != nil {
 			return err
 		}
@@ -114,13 +119,18 @@ func deleteMessage(db *sql.DB, user User, messageID int64) error {
 		return fmt.Errorf("seuls les utilisateurs avec le rôle 'admin' ou 'connected' peuvent supprimer des discution")
 	}
 
+	message, err := getMessageByID(db, messageID)
+	if err != nil {
+		return err
+	}
+
 	switch user.Role {
 	case "connected":
-		if user.ID != userID {
+		if user.ID != message.IDcreateur {
 			return fmt.Errorf("vous n'êtes autorisé à supprimer que vos propres discutions")
 		} else {
 			// Suppression des messages associés à l'ID discussion
-			err = deleteMessagesBymessageID(db, messageID)
+			err := deleteMessagesBymessageID(db, messageID)
 			if err != nil {
 				return err
 			}
@@ -129,7 +139,7 @@ func deleteMessage(db *sql.DB, user User, messageID int64) error {
 
 	case "admin":
 		// Suppression des messages associés à l'ID discussion
-		err = deleteMessagesBymessageID(db, messageID)
+		err := deleteMessagesBymessageID(db, messageID)
 		if err != nil {
 			return err
 		}
@@ -150,7 +160,7 @@ func createDiscussion(db *sql.DB, user User, image []byte, titre string, descrip
 		titre:        titre,
 		description:  description,
 		nmbreDeLikes: 0,
-		idUser:       user.userID,
+		idUser:       user.ID,
 	}
 
 	// Insérer la nouvelle discussion dans la base de données
@@ -170,9 +180,9 @@ func createMessage(db *sql.DB, user User, text string, IDdiscution int64) error 
 	// Générer un nouveau message
 	message := messages{
 		ID:          0, // L'ID sera automatiquement généré par la base de données
-		Text:        text,
-		idUser:      user.userID,
-		IDDiscution: IDdiscution,
+		text:        text,
+		IDcreateur:  user.ID,
+		IDdiscution: IDdiscution,
 	}
 
 	// Insérer le nouveau message dans la base de données

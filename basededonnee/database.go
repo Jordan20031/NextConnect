@@ -46,7 +46,7 @@ func deleteUserFromDB(db *sql.DB, userID int64) error {
 	return err
 }
 
-func updateUsername(db *sql.DB, userID int64, newUsername string) error {
+func updateUsername(db *sql.DB, user *User, newUsername string) error {
 	updateQuery := "UPDATE users SET Username = ? WHERE ID = ?"
 	_, err := db.Exec(updateQuery, newUsername, user.ID)
 	if err != nil {
@@ -102,9 +102,9 @@ func getUserByUsername(db *sql.DB, username string) (User, error) {
 	return user, nil
 }
 
-func insertDiscussion(db *sql.DB, discussion *Discussions) error {
+func insertDiscussion(db *sql.DB, discussion *discussions) error {
 	insertQuery := "INSERT INTO discussions (image, titre, description, nmbreDeLikes, idUser) VALUES (?, ?, ?, ?, ?)"
-	result, err := db.Exec(insertQuery, discussion.Image, discussion.Titre, discussion.Description, discussion.NmbreDeLikes, discussion.IDUser)
+	result, err := db.Exec(insertQuery, discussion.image, discussion.titre, discussion.description, discussion.nmbreDeLikes, discussion.idUser)
 	if err != nil {
 		return err
 	}
@@ -112,21 +112,21 @@ func insertDiscussion(db *sql.DB, discussion *Discussions) error {
 	return nil
 }
 
-func getDiscussionByID(db *sql.DB, discussionID int64) (Discussions, error) {
+func getDiscussionByID(db *sql.DB, discussionID int64) (discussions, error) {
 	query := "SELECT ID, image, titre, description, nmbreDeLikes, idUser FROM discussions WHERE ID = ?"
 
-	var discussion Discussions
-	err := db.QueryRow(query, discussionID).Scan(&discussion.ID, &discussion.Image, &discussion.Titre, &discussion.Description, &discussion.NmbreDeLikes, &discussion.IDUser)
+	var discussion discussions
+	err := db.QueryRow(query, discussionID).Scan(&discussion.ID, &discussion.image, &discussion.titre, &discussion.description, &discussion.nmbreDeLikes, &discussion.idUser)
 	if err != nil {
-		return Discussions{}, err
+		return discussions{}, err
 	}
 
 	return discussion, nil
 }
 
-func insertMessage(db *sql.DB, message *Messages) error {
+func insertMessage(db *sql.DB, message *messages) error {
 	insertQuery := "INSERT INTO messages (text, IDcreateur, IDdiscution) VALUES (?, ?, ?)"
-	result, err := db.Exec(insertQuery, message.Text, message.IDCreateur, message.IDDiscution)
+	result, err := db.Exec(insertQuery, message.text, message.IDcreateur, message.IDdiscution)
 	if err != nil {
 		return err
 	}
@@ -134,13 +134,13 @@ func insertMessage(db *sql.DB, message *Messages) error {
 	return nil
 }
 
-func getMessageByID(db *sql.DB, messageID int64) (Messages, error) {
+func getMessageByID(db *sql.DB, messageID int64) (messages, error) {
 	query := "SELECT ID, text, IDcreateur, IDdiscution FROM messages WHERE ID = ?"
 
-	var message Messages
-	err := db.QueryRow(query, messageID).Scan(&message.ID, &message.Text, &message.IDCreateur, &message.IDDiscution)
+	var message messages
+	err := db.QueryRow(query, messageID).Scan(&message.ID, &message.text, &message.IDcreateur, &message.IDdiscution)
 	if err != nil {
-		return Messages{}, err
+		return messages{}, err
 	}
 
 	return message, nil
@@ -158,14 +158,20 @@ func deleteDiscussionsByUserID(db *sql.DB, userID int64) error {
 	return err
 }
 
-func deleteMessagesByDiscussionID(db *sql.DB, discussionID int64) error {
+func deleteMessagesBydiscussionID(db *sql.DB, discussionID int64) error {
 	deleteQuery := "DELETE FROM messages WHERE IDdiscution = ?"
 	_, err := db.Exec(deleteQuery, discussionID)
 	return err
 }
 
-func deleteDiscussionsByDiscussionID(db *sql.DB, discussionID int64) error {
+func deleteDiscussionsBydiscussionID(db *sql.DB, discussionID int64) error {
 	deleteQuery := "DELETE FROM discussions WHERE ID = ?"
 	_, err := db.Exec(deleteQuery, discussionID)
+	return err
+}
+
+func deleteMessagesBymessageID(db *sql.DB, messageID int64) error {
+	deleteQuery := "DELETE FROM message WHERE ID = ?"
+	_, err := db.Exec(deleteQuery, messageID)
 	return err
 }
