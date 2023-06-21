@@ -1,5 +1,10 @@
 package basededonnee
 
+import (
+	"database/sql"
+	"fmt"
+)
+
 func canDeleteFromDB(user User) bool {
 	return user.Role == "admin" || user.Role == "connected"
 }
@@ -140,12 +145,12 @@ func createDiscussion(db *sql.DB, user User, image []byte, titre string, descrip
 
 	// Initialisation de la variable discussion
 	discussion := discussions{
-		ID:          0,             // L'ID sera automatiquement généré par la base de données
-		image:       image,
-		titre:       titre,
-		description: description,
+		ID:           0, // L'ID sera automatiquement généré par la base de données
+		image:        image,
+		titre:        titre,
+		description:  description,
 		nmbreDeLikes: 0,
-		idUser:      user.userID,
+		idUser:       user.userID,
 	}
 
 	// Insérer la nouvelle discussion dans la base de données
@@ -164,9 +169,9 @@ func createMessage(db *sql.DB, user User, text string, IDdiscution int64) error 
 
 	// Générer un nouveau message
 	message := messages{
-		ID:          0,             // L'ID sera automatiquement généré par la base de données
+		ID:          0, // L'ID sera automatiquement généré par la base de données
 		Text:        text,
-		idUser:      user.userID
+		idUser:      user.userID,
 		IDDiscution: IDdiscution,
 	}
 

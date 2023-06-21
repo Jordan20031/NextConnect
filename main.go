@@ -13,7 +13,8 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "./data.db")
+
+	db, err := sql.Open("sqlite3", "./basededonnee/data.db")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -230,9 +231,12 @@ func main() {
 		// Définir les en-têtes de réponse pour le type de contenu
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
+		// Afficher la page discussion.html avec le CSS incorporé
+		fmt.Fprintf(w, "<html><head><title>Discussion</title><style>%s</style></head><body>%s</body></html>", string(css), string(html))
 	})
 
 	// Définir une route pour récupérer les données de la base de données ("/data")
+
 	r.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
 		// Exécuter une requête SQL pour récupérer les données de la table "users"
 		rows, err := db.Query("SELECT * FROM users")
